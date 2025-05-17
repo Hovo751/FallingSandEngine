@@ -3,6 +3,7 @@
 #include <thread>
 #include <iostream>
 #include <atomic>
+#include "Headers/TextureArr.h"
 
 unsigned int width, height;
 

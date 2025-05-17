@@ -4,10 +4,11 @@
 
 struct Node {
     int value;
+    int speed;
     Node* next;
     Node* prev;
     int id;
-    Node(int v) : value(v), next(nullptr), prev(nullptr) {}
+    Node(int v) : value(v), next(nullptr), prev(nullptr), speed(0) {}
 };
 
 class IntChain {
