@@ -50,7 +50,7 @@ public:
         pixelRef[i] = node;
     }
 
-    std::uint8_t* getData() {
+    std::uint8_t* data() {
         return pixels.data();
     }
 
