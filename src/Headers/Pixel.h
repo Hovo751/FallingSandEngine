@@ -2,15 +2,24 @@
 #include <iostream>
 #include <functional>
 
+enum PixelType {
+    LIQUID,
+    PASSIVE,
+    SANDLIKE,
+    AIR
+};
+
 struct Pixel
 {
-    int type;
+    PixelType type;
+    //int main;
     int density;
-    int r, g, b, a;
+    float stopChance;
+    uint8_t r, g, b, a;
     std::function<void()> action;
 
-    Pixel(int t, int d, int red, int green, int blue, int alpha, std::function<void()> func)
-        : type(t), density(d), r(red), g(green), b(blue), a(alpha), action(func) {
+    Pixel(PixelType tp, int d, float st, uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, std::function<void()> func)
+        : type(tp), density(d), stopChance(st), r(red), g(green), b(blue), a(alpha), action(func) {
     }
 
     void runAction()

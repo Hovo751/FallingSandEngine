@@ -4,6 +4,16 @@
 #include "Chain.h"
 #include <algorithm>
 
+bool checkNode(void* ptr) {
+    if (reinterpret_cast<uintptr_t>(ptr) == 0xdddddddddddddddd || reinterpret_cast<uintptr_t>(ptr) == 0xdddddddd) {
+        std::cout << "Memory is marked as 0xDDDDDDDD (freed or uninitialized)." << std::endl;
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 class TextureArr {
     std::vector<std::uint8_t> pixels;
     std::vector<Node*> pixelRef;
@@ -93,8 +103,18 @@ public:
         }
 
         Node* node1 = getPixelNode(i1);
-        setNode(getPixelNode(i2), i2);
-        setNode(node1, i1);
+        //std::cout << node1->value;
+        if (node1 != nullptr && checkNode(node1))
+        {
+            node1->value = i2;
+        }
+        Node* node2 = getPixelNode(i2);
+        if (node2 != nullptr && checkNode(node2))
+        {
+            node2->value = i1;
+        }
+        setNode(node2, i1);
+        setNode(node1, i2);
     }
 
     void SwapPixels(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) {

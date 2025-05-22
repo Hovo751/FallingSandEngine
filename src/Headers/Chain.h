@@ -5,10 +5,11 @@
 struct Node {
     int value;
     int speed;
+    bool gettingEdited;
     Node* next;
     Node* prev;
     int id;
-    Node(int v) : value(v), next(nullptr), prev(nullptr), speed(0) {}
+    Node(int v) : value(v), next(nullptr), prev(nullptr), speed(0), gettingEdited(false) {}
 };
 
 class IntChain {
@@ -17,7 +18,6 @@ class IntChain {
 
 public:
     Node* start = nullptr;
-    Node* end = nullptr;
 
     Node* add(int val, unsigned int num) {
         num = (num <= count) ? num : 0;
@@ -27,7 +27,6 @@ public:
         if (count == 0)
         {
             start = newNode;
-            end = newNode;
         }
         else
         {
@@ -36,12 +35,6 @@ public:
                 newNode->next = start;
                 start->prev = newNode;
                 start = newNode;
-            }
-            else if (num == count)
-            {
-                newNode->prev = end;
-                end->next = newNode;
-                end = newNode;
             }
             else if (num < count / 2)
             {
@@ -55,18 +48,6 @@ public:
                 newNode->next->prev = newNode;
                 newNode->prev->next = newNode;
             }
-            else
-            {
-                Node* crt = end;
-                for (int i = count - 1 - num; i > 0; i--)
-                {
-                    crt = crt->prev;
-                }
-                newNode->next = crt;
-                newNode->prev = crt->prev;
-                newNode->next->prev = newNode;
-                newNode->prev->next = newNode;
-            }
         }
         count++;
         return newNode;
@@ -75,8 +56,11 @@ public:
     void deleteByAdr(Node* node) {
         if (node->id == id)
         {
+            Node* pvr;
+            Node* nxt;
             if (node->next)
             {
+                nxt = node->next;
                 node->next->prev = node->prev;
                 if (!node->prev) {
                     start = node->next;
@@ -85,18 +69,15 @@ public:
 
             if (node->prev)
             {
+                pvr = node->prev;
                 node->prev->next = node->next;
-                if (!node->next) {
-                    end = node->prev;
-                }
             }
 
-            delete node;
+            //delete node;
             count--;
-        }
-        if (count == 0) {
-            start = nullptr;
-            end = nullptr;
+            if (count == 0) {
+                start = nullptr;
+            }
         }
     }
 

@@ -12,6 +12,6 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/Headers/Chain.h" "src/Headers/IdCreator.h" "src/Headers/TextureArr.h" "src/Headers/PixelInfo.h")
+add_executable(main src/main.cpp "src/Headers/Chain.h" "src/Headers/IdCreator.h" "src/Headers/TextureArr.h" "src/Headers/Pixel.h"   "src/Headers/PixelManager.h")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
